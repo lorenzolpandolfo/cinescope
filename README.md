@@ -92,11 +92,13 @@ O servidor carrega o `.env` da raiz do projeto.
 | `MONGODB_URI` | Sim em produção | String de conexão do MongoDB |
 | `JWT_SECRET` | Sim em produção | Segredo usado para assinar os tokens JWT |
 | `JWT_EXPIRES_IN` | Não | Validade do token (padrão: `7d`) |
-| `CLIENT_ORIGIN` | Não | Origens permitidas pelo CORS, separadas por vírgula |
+| `CLIENT_ORIGIN` | Não | Origens permitidas pelo CORS, separadas por vírgula. Aceita `*` ou padrões como `https://*.onrender.com` |
 | `PORT` | Não | Porta do servidor (padrão: `4000`) |
 | `NODE_ENV` | Não | `development` ou `production` |
 
 O backend aceita tanto a API Key v3 quanto o Read Access Token do TMDB. Quando o valor é um Read Access Token, a autenticação é feita com `Authorization: Bearer`. Quando é uma API Key v3, a chave é enviada como parâmetro `api_key`, sempre no backend.
+
+Para liberar qualquer origem no CORS, use `CLIENT_ORIGIN=*`. Também é possível usar padrões com `*`, como `CLIENT_ORIGIN=https://*.onrender.com`.
 
 No frontend, a única variável necessária é `VITE_API_URL`:
 
@@ -240,7 +242,7 @@ As imagens usam a base `https://image.tmdb.org/t/p/w500`. O banco armazena o `po
 - Tokens JWT assinados com segredo de ambiente e validade configurável.
 - Rotas de biblioteca e perfil protegidas no backend e no frontend.
 - Validação de tipos, tamanhos, e-mail e identificadores.
-- CORS restrito às origens configuradas.
+- CORS restrito às origens configuradas. O valor `*` libera qualquer origem e deve ser usado apenas quando necessário.
 - Limite de tamanho do corpo JSON.
 - Tratamento centralizado de erros sem vazar detalhes internos em produção.
 - Chave do TMDB mantida apenas no backend.
